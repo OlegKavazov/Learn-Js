@@ -33,13 +33,43 @@ const personalMovieDB = {
   privat: false,
 };
 
-const nameOfFilm = prompt("Один из последних просмотренных фильмов?", ""),
-  answerOfRating = +prompt("На сколько оцените его?", ""),
-  nameOfFilm1 = prompt("Один из последних просмотренных фильмов?", ""),
-  answerOfRating1 = +prompt("На сколько оцените его?", "");
+for (let i = 0; i < 2; i++) {
+  const nameOfFilm = prompt("Один из последних просмотренных фильмов?", ""),
+    answerOfRating = +prompt("На сколько оцените его?", "");
 
-personalMovieDB.movies[nameOfFilm] = answerOfRating;
-personalMovieDB.movies[nameOfFilm1] = answerOfRating1;
+  if (personalMovieDB.movies.hasOwnProperty(nameOfFilm)) {
+    console.log("Такой фильм уже добавлен.");
+    i--;
+    continue;
+  }
+
+  if (
+    nameOfFilm != null &&
+    answerOfRating != null &&
+    nameOfFilm.trim() != "" &&
+    // answerOfRating != "" &&
+    !isNaN(answerOfRating) &&
+    answerOfRating >= 1 &&
+    answerOfRating <= 10 &&
+    nameOfFilm.trim().length < 50
+  ) {
+    personalMovieDB.movies[nameOfFilm] = answerOfRating;
+    console.log("done!");
+  } else {
+    console.log("error!");
+    i--;
+  }
+}
+
+if (personalMovieDB.count > 0 && personalMovieDB.count < 10) {
+  console.log("Просмотрено довольно мало фильмов");
+} else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
+  console.log("Вы классический зритель");
+} else if (personalMovieDB.count > 30) {
+  console.log("Вы киноман");
+} else {
+  console.log("Произошла ошибка");
+}
 
 console.log(personalMovieDB);
 
@@ -57,5 +87,3 @@ str.length - и получить её длину)
 "Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
 
 4) Потренироваться и переписать цикл еще двумя способами*/
-
-
